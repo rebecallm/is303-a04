@@ -12,7 +12,7 @@ Inputs:
 
 Processes:
 - datetime library for date handling
-- get_valid_int(prompt): keeps asking until user enters a valid string (try/except)
+- get_valid_int(prompt): keeps asking until user enters a valid integer (try/except)
 - calculate_total_sessions(sessions, subject): returns the total number of study sessions 
 along with their subjects
 - calculate_total_minutes(sessions, minutes): returns the total minutes studied
@@ -82,9 +82,7 @@ def main():
         })
         
     total_sessions = calculate_total_sessions(sessions)
-    
     total_minutes = calculate_total_minutes(sessions) 
-    
     busies_subject = find_busiest_subject(sessions)
     
     display_report(total_sessions, total_minutes, busies_subject)
