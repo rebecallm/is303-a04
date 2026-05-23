@@ -55,6 +55,7 @@ def find_busiest_subject(sessions):
     for log in sessions:
         subject = log['subject']
         minutes = log['minutes']
+        date = log ['date']
         if subject in subject_time:
             subject_time[subject] += minutes
         else:
@@ -62,9 +63,10 @@ def find_busiest_subject(sessions):
     busiest_subject = max(subject_time, key=subject_time.get)
     return busiest_subject
 
-def display_report(total_sessions, total_minutes, busiest_subject):
+def display_report(total_sessions, total_minutes, busiest_subject, date):
     """prints formatted statistics."""
     print("\nStudy Report:")
+    print(f"Date: {date}")
     print(f"Total sessions logged: {total_sessions}")
     print(f"Total minutes studied: {total_minutes}")
     print(f"Busiest subject: {busiest_subject}")
@@ -73,19 +75,20 @@ def display_report(total_sessions, total_minutes, busiest_subject):
 def main():
     sessions = []
     num_sessions = get_valid_int("Enter the number of study sessions: ")
+    date = datetime.date.today()
     for i in range(num_sessions):
         print(f"\nSession {i+1}:")
-        subject = input("Enter the subject: ")
+        subject = input("Enter the subject: ").title()
         minutes = get_valid_int("Enter the duration in minutes: ")
         sessions.append({
-            "subject": subject, "minutes": minutes
+            "subject": subject, "minutes": minutes, "date": date
         })
         
     total_sessions = calculate_total_sessions(sessions)
     total_minutes = calculate_total_minutes(sessions) 
-    busies_subject = find_busiest_subject(sessions)
+    busiest_subject = find_busiest_subject(sessions)
     
-    display_report(total_sessions, total_minutes, busies_subject)
+    display_report(total_sessions, total_minutes, busiest_subject, date)
 
 if __name__ == "__main__":
     main()
